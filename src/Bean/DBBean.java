@@ -27,6 +27,34 @@ public class DBBean {
     }
 
     /**
+     * 创建一个新的表
+     * @param tableName   要创建的表名字
+     * @return     成功返回1
+     */
+    public int executeNewTable(String tableName,String type) {
+        int result = 0;
+        String sql = null;
+        if(type.equals("delete")){
+            sql="drop table "+tableName;
+            System.out.println("--删除表:"+sql+"\n");
+        }else if(type.equals("create")) {
+            sql = "create table " + tableName +
+                    "(id int NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+                    "name varchar(100) NOT NULL UNIQUE KEY" +
+                    ",outprice float NOT NULL" +
+                    ",inprie float,num int NOT NULL)";
+            System.out.println("--创建新的表:"+sql+"\n");
+        }
+        try {
+            result = stmt.executeUpdate(sql);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            System.out.println("执行创建/删除表错误！");
+        }
+        return result;
+    }
+
+    /**
      *删除数据库中数据
      * @param value      想要删除的那一列的哪个值
      * @param tableName     想要查询的数据库的表名

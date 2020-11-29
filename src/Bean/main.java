@@ -19,11 +19,12 @@ public class main {
 //        dbBean.executeQuery("itemmanager(Name,OutPrice,Num,InPrice)","'bowl',8.8,15,4.4");
         //dbBean.executeDelete("wkr","customermanager","Name");
         //dbBean.executeUpdate("'wkr'","nameandpassword",
-         //       "user_name","654321","user_password");
+        //       "user_name","654321","user_password");
         //dbBean.executeDelete("yzj","nameandpassword","user_name");
         //dbBean.executeQuery("nameandpassword(user_name,user_password,age)","'yzj','654321',10");
         //ResultSet resultSet=dbBean.executeQuery("wkr","nameandpassword","user_name");
 //        String password="1234567";
+        dbBean.executeNewTable("item1","delete");
         ResultSet resultSet=null;
 //        Vector<Vector<Object>> res = new Vector<Vector<Object>>();returnVector.FromDBRead(dbBean,"itemmanager","sxz","name");
 //        resultSet=dbBean.executeTablehead("itemmanager");
