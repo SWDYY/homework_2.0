@@ -6,7 +6,7 @@ public class DBBean {
     private String driverStr = "com.mysql.jdbc.Driver";
     private String connStr = "jdbc:mysql://localhost:3306/homework?serverTimezone=UTC";
     private String dbusername = "root";
-    private String dbpassword = "154537839";
+    private String dbpassword = "zhege00..";
     private Connection conn = null;
     private Statement stmt = null;
 

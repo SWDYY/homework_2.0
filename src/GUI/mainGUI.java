@@ -2,8 +2,11 @@ package GUI;
 
 import Bean.DBBean;
 import op.*;
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
@@ -12,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.Vector;
 
 public class mainGUI extends JFrame{
@@ -43,18 +47,27 @@ public class mainGUI extends JFrame{
     private DBBean db=new DBBean();
     Vector<Object> name_checkStock = new Vector<>();
 
+    //设置全局字体
+    public static void initGlobalFontSetting(Font fnt){
+        FontUIResource fontRes = new FontUIResource(fnt);
+        for(Enumeration keys = UIManager.getDefaults().keys(); keys.hasMoreElements();){
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if(value instanceof FontUIResource)
+                UIManager.put(key, fontRes);
+        }
+    }
+
     /**
      * Launch the application.
      */
-    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
-
-            JFrame.setDefaultLookAndFeelDecorated(true);
-            UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
-
+    public static void main(String[] args) throws Exception {
+        initGlobalFontSetting(new Font("alias", Font.PLAIN, 12));  //统一设置字体
+        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    mainGUI frame = new mainGUI();
+                    mainGUI frame = new mainGUI(null);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -67,10 +80,11 @@ public class mainGUI extends JFrame{
      * Create the frame.
      * @throws SQLException
      */
-    public mainGUI() throws SQLException{
+    public mainGUI(String name) throws SQLException{
+        super(name);
         // 设置总面板属性
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 794, 510);
+        setBounds(100, 100, 1500, 1000);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -493,7 +507,7 @@ public class mainGUI extends JFrame{
         JPanel panel_inStock_saveAndTotal = new JPanel();
         panel_inStock.add(panel_inStock_saveAndTotal, BorderLayout.SOUTH);
         panel_inStock_saveAndTotal.setLayout(new BorderLayout(0, 0));
-        
+
         // 进货保存按钮
         JButton button_inStock_save = new JButton("保存");
         panel_inStock_saveAndTotal.add(button_inStock_save, BorderLayout.EAST);
